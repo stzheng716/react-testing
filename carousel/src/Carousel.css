@@ -17,3 +17,8 @@
 .bi {
   font-size: 35px
 }
+
+i.hidden {
+  opacity: 0;
+  pointer-events: none;
+}

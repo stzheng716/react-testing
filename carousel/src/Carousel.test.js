@@ -9,7 +9,17 @@ it("renders carousel without crashing", function () {
       title="images for testing"
     />
   );
-})
+});
+
+it("matches snapshot", function () {
+  const { container } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
 
 it("works when you click on the right arrow", function () {
   const { container } = render(
@@ -30,14 +40,13 @@ it("works when you click on the right arrow", function () {
   const rightArrow = container.querySelector(".bi-arrow-right-circle");
   fireEvent.click(rightArrow);
 
-
   // expect the second image to show, but not the first
-  expect(
-    container.querySelector('img[alt="testing image 1"]')
-  ).not.toBeInTheDocument();
   expect(
     container.querySelector('img[alt="testing image 2"]')
   ).toBeInTheDocument();
+  expect(
+    container.querySelector('img[alt="testing image 1"]')
+  ).not.toBeInTheDocument();
 });
 
 it("works when you click on the left arrow", function () {
@@ -64,14 +73,14 @@ it("works when you click on the left arrow", function () {
   fireEvent.click(leftArrow);
 
   expect(
-    container.querySelector('img[alt="testing image 2"]')
-  ).not.toBeInTheDocument();
-  expect(
     container.querySelector('img[alt="testing image 1"]')
   ).toBeInTheDocument();
+  expect(
+    container.querySelector('img[alt="testing image 2"]')
+  ).not.toBeInTheDocument();
 });
 
-it("no left arrow on first page", function () {
+it("shows no left arrow on first page", function () {
   const { container } = render(
     <Carousel
       photos={TEST_IMAGES}
@@ -87,7 +96,7 @@ it("no left arrow on first page", function () {
   ).not.toBeInTheDocument();
 });
 
-it("no right arrow on last page", function () {
+it("shows no right arrow on last page", function () {
   const { container } = render(
     <Carousel
       photos={TEST_IMAGES}

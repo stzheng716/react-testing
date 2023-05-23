@@ -4,14 +4,14 @@ import Card from "./Card";
 
 
 /** Carousel: displays images and arrows to navigate through them
- * 
+ *
  * Props:
  * - photos: array of {src, caption} objects
  * - title: string describing the collection of images
- * 
+ *
  * State:
  * - currCardIdx: integer for current card index
- * 
+ *
  * App --> Carousel --> Card
  */
  function Carousel({ photos, title }) {
@@ -20,6 +20,9 @@ import Card from "./Card";
   const currCard = photos[currCardIdx];
   const total = photos.length;
 
+  const leftIconHidden = (currCardIdx === 0) ? "hidden" : "";
+  const rightIconHidden = (currCardIdx === total - 1) ? "hidden" : "";
+
   //Increments currCardIdx state by 1
   function goForward() {
     setCurrCardIdx(currCardIdx + 1);
@@ -27,27 +30,29 @@ import Card from "./Card";
 
   //decrements currCardIdx state by 1
   function goBackward() {
-    setCurrCardIdx(currCardIdx - 1);
+      setCurrCardIdx(currCardIdx - 1);
   }
+
+
 
   return (
     <div className="Carousel">
       <h1>{title}</h1>
       <div className="Carousel-main">
-        {currCard === photos[0] && <i
-          className="bi bi-arrow-left-circle"
+        <i
+          className= {`bi bi-arrow-left-circle ${leftIconHidden}`}
           onClick={goBackward}
-        />}
+        />
         <Card
           caption={currCard.caption}
           src={currCard.src}
           currNum={currCardIdx + 1}
           totalNum={total}
         />
-        {currCard === photos[total- 1] && <i
-          className="bi bi-arrow-right-circle"
-          onClick={goForward}/>
-        }
+        <i
+          className= {`bi bi-arrow-right-circle ${rightIconHidden}`}
+          onClick={goForward}
+        />
       </div>
     </div>
   );
